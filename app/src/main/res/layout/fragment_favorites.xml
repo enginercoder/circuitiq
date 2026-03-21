@@ -1,27 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_light">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:background="@drawable/bg_gradient_header"
-        android:paddingStart="20dp" android:paddingEnd="20dp"
-        android:paddingTop="44dp" android:paddingBottom="16dp">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="★ Favourites" android:textColor="#FFD700" android:fontFamily="sans-serif-bold"
-            android:textSize="20sp" android:fontFamily="sans-serif-bold"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_header_card"
+        android:paddingStart="24dp" android:paddingEnd="24dp"
+        android:paddingTop="16dp" android:paddingBottom="16dp">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:text="Favourites"/>
     </LinearLayout>
     <TextView android:id="@+id/tvEmpty"
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="No favourites yet.
-Tap ☆ on any calculator to save it here."
-        android:textColor="@color/text_secondary" android:gravity="center"
-        android:padding="60dp" android:visibility="gone"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="60dp"
+        android:visibility="gone"
+        android:textColor="@color/text_secondary"
+        android:text="No favourites yet."/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingStart="12dp" android:paddingEnd="12dp"
-        android:paddingBottom="80dp" android:clipToPadding="false"/>
+        android:paddingBottom="80dp"
+        android:clipToPadding="false"/>
 </LinearLayout>

@@ -40,4 +40,5 @@
 
     <!-- Icon launcher -->
     <color name="ic_launcher_background">#FFB300</color>
-</resources>    <color name="white">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+</resources>

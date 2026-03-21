@@ -35,6 +35,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(v, s)
 
         b.tvGreeting.text = getGreeting()
+        b.ivGreetingIcon.setImageResource(getGreetingIconRes())
         b.tvSubtitle.text = "What will you calculate today?"
 
         val categories = CalculatorData.getCategories()
@@ -115,6 +116,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         b.tvGreeting.text = getGreeting()
+        b.ivGreetingIcon.setImageResource(getGreetingIconRes())
     }
 
     override fun onDestroyView() { super.onDestroyView(); _b = null }

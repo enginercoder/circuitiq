@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp" android:height="32dp"
+    android:viewportWidth="32" android:viewportHeight="32">
+    <path android:fillColor="#AAAAFF"
+        android:pathData="M22,16A10,10 0,1 1,12,6a7,7 0,0 0,10,10z"/>
+    <!-- Snoring ZZZ -->
+    <path android:strokeColor="#CCCCFF" android:strokeWidth="1.5" android:strokeLineCap="round"
+        android:pathData="M24,8 L27,8 M24,8 L27,11 L24,11 M27,11 L24,11"/>
+</vector>

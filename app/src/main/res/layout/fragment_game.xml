@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_dark">
+
+    <!-- Header -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_header"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingTop="16dp" android:paddingBottom="16dp"
+        android:orientation="horizontal" android:gravity="center_vertical">
+        <TextView android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="⚡ Electric Quiz" android:textColor="#FFD700"
+            android:textSize="20sp" android:fontFamily="sans-serif-bold"/>
+        <TextView android:id="@+id/tvScore"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="⚡ 0" android:textColor="#FFD700"
+            android:textSize="18sp" android:fontFamily="sans-serif-bold"
+            android:background="@drawable/bg_gold_badge"
+            android:paddingStart="12dp" android:paddingEnd="12dp"
+            android:paddingTop="6dp" android:paddingBottom="6dp"/>
+    </LinearLayout>
+
+    <!-- Question Layout -->
+    <LinearLayout android:id="@+id/questionLayout"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:padding="16dp">
+
+        <!-- Lives + Timer row -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+            <TextView android:id="@+id/tvLives"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="❤️❤️❤️" android:textSize="18sp"/>
+            <TextView android:id="@+id/tvTimer"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="15s" android:textColor="#FFD700"
+                android:textSize="16sp" android:fontFamily="sans-serif-bold"
+                android:layout_marginEnd="8dp"/>
+            <TextView android:id="@+id/tvQNumber"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="1/25" android:textColor="#AAAACC" android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- Timer progress -->
+        <ProgressBar android:id="@+id/progressTimer"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent" android:layout_height="8dp"
+            android:max="15" android:progress="15"
+            android:progressDrawable="@drawable/progress_orange"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Question card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1" android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp" app:cardElevation="8dp"
+            app:cardBackgroundColor="#1E0A3E">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center" android:padding="24dp">
+                <TextView android:id="@+id/tvQuestion"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Question..." android:textColor="#FFFFFF"
+                    android:textSize="18sp" android:gravity="center"
+                    android:fontFamily="sans-serif-medium" android:lineSpacingExtra="6dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Feedback -->
+        <TextView android:id="@+id/tvFeedback"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="" android:textSize="15sp" android:gravity="center"
+            android:fontFamily="sans-serif-bold" android:layout_marginBottom="8dp"
+            android:visibility="gone"/>
+
+        <!-- Option buttons -->
+        <android.widget.Button android:id="@+id/btnA"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:text="Option A" android:textColor="#FFFFFF" android:textSize="14sp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_result_card" android:stateListAnimator="@null"/>
+        <android.widget.Button android:id="@+id/btnB"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:text="Option B" android:textColor="#FFFFFF" android:textSize="14sp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_result_card" android:stateListAnimator="@null"/>
+        <android.widget.Button android:id="@+id/btnC"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:text="Option C" android:textColor="#FFFFFF" android:textSize="14sp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_result_card" android:stateListAnimator="@null"/>
+        <android.widget.Button android:id="@+id/btnD"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:text="Option D" android:textColor="#FFFFFF" android:textSize="14sp"
+            android:background="@drawable/bg_result_card" android:stateListAnimator="@null"/>
+    </LinearLayout>
+
+    <!-- Game Over Layout -->
+    <LinearLayout android:id="@+id/gameOverLayout"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:gravity="center" android:padding="32dp"
+        android:visibility="gone">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="⚡" android:textSize="72sp" android:layout_marginBottom="16dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Game Over!" android:textColor="#FFD700"
+            android:textSize="28sp" android:fontFamily="sans-serif-bold"
+            android:layout_marginBottom="8dp"/>
+        <TextView android:id="@+id/tvGameOverMsg"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="" android:textColor="#AAAACC" android:textSize="16sp"
+            android:gravity="center" android:layout_marginBottom="24dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Your Score" android:textColor="#AAAACC" android:textSize="14sp"/>
+        <TextView android:id="@+id/tvFinalScore"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="0" android:textColor="#FFD700"
+            android:textSize="64sp" android:fontFamily="sans-serif-bold"
+            android:layout_marginBottom="32dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRestart"
+            android:layout_width="match_parent" android:layout_height="56dp"
+            android:text="⚡ Play Again"
+            android:textColor="#1A0A2E" android:fontFamily="sans-serif-bold"
+            android:background="@drawable/bg_btn_gold"
+            android:stateListAnimator="@null"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -41,4 +41,7 @@
     <color name="result_bg">#1A0A2E</color>
     <color name="fav_gold">#FFD700</color>
     <color name="fav_bg">#FFF8E1</color>
+    <color name="input_bg">#F5F0FF</color>
+    <color name="text_on_input">#1A1A2E</color>
+    <color name="ic_launcher_background">#FFB300</color>
 </resources>

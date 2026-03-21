@@ -13,7 +13,7 @@
             android:orientation="vertical" android:gravity="center"
             android:paddingTop="48dp" android:paddingBottom="32dp" android:paddingStart="20dp" android:paddingEnd="20dp">
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="⚡" android:textSize="56sp"/>
+                android:text="💡" android:textSize="56sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="CircuitIQ" android:textColor="#FFD700"
                 android:textSize="28sp" android:fontFamily="sans-serif-bold" android:layout_marginTop="8dp"/>

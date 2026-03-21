@@ -5,4 +5,6 @@
     <color name="nav_bg">#1A1A2E</color>
     <color name="text_primary">#F0F0FF</color>
     <color name="text_secondary">#AAAACC</color>
+    <color name="input_bg">#2A1A3E</color>
+    <color name="text_on_input">#F0F0FF</color>
 </resources>

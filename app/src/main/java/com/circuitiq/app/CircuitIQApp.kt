@@ -19,3 +19,4 @@ class CircuitIQApp : Application() {
     }
     companion object { lateinit var instance: CircuitIQApp }
 }
+// v1.0.1

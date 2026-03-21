@@ -282,4 +282,164 @@ object CalculatorEngine {
         val nearest = e12.minByOrNull { abs(it - mantissa) } ?: 1.0
         return nearest * 10.0.pow(exp)
     }
+    // ── 21. KIRCHHOFF VOLTAGE LAW ─────────────────────────────────────────────
+    fun kirchhoffVoltage(voltages: List<Double>): Result {
+        val sum = voltages.sum()
+        val unknown = -voltages.dropLast(1).sum()
+        return Result(
+            mapOf("Sum of all voltages" to "${fmt(sum)} V", "Unknown voltage" to "${fmt(unknown)} V"),
+            "ΣV = 0 (around closed loop)",
+            "By KVL, the algebraic sum of all voltages around any closed loop equals zero."
+        )
+    }
+
+    // ── 22. WHEATSTONE BRIDGE ─────────────────────────────────────────────────
+    fun wheatstoneBridge(r1: Double, r2: Double, r3: Double): Result {
+        val rx = r2 * r3 / r1
+        return Result(
+            mapOf("Unknown Resistance Rx" to "${fmt(rx)} Ω", "Balance condition" to "R1/R2 = R3/Rx"),
+            "Rx = R2 × R3 / R1",
+            "Wheatstone bridge is balanced when no current flows through galvanometer."
+        )
+    }
+
+    // ── 23. ZENER DIODE ───────────────────────────────────────────────────────
+    fun zenerRegulator(vs: Double, vz: Double, rs: Double, rl: Double): Result {
+        val iz = (vs - vz) / rs - vz / rl
+        val pz = vz * iz
+        val il = vz / rl
+        return Result(
+            mapOf("Zener Current Iz" to "${fmt(iz)} A (${fmt(iz*1000)} mA)",
+                  "Load Current IL" to "${fmt(il)} A (${fmt(il*1000)} mA)",
+                  "Zener Power Pz" to "${fmt(pz)} W"),
+            "Iz = (Vs-Vz)/Rs - IL",
+            "Zener diode maintains constant output voltage by absorbing excess current."
+        )
+    }
+
+    // ── 24. RC IMPEDANCE ─────────────────────────────────────────────────────
+    fun impedanceRC(r: Double, f: Double, c: Double): Result {
+        val xc = 1.0 / (2 * PI * f * c)
+        val z = sqrt(r * r + xc * xc)
+        val phase = Math.toDegrees(atan(xc / r))
+        return Result(
+            mapOf("Impedance Z" to "${fmt(z)} Ω",
+                  "Capacitive Reactance Xc" to "${fmt(xc)} Ω",
+                  "Phase Angle" to "${fmt(phase)}°"),
+            "Z = √(R² + Xc²)",
+            "In RC circuits, voltage lags current. Impedance combines resistance and reactance."
+        )
+    }
+
+    // ── 25. RL IMPEDANCE ─────────────────────────────────────────────────────
+    fun impedanceRL(r: Double, f: Double, l: Double): Result {
+        val xl = 2 * PI * f * l
+        val z = sqrt(r * r + xl * xl)
+        val phase = Math.toDegrees(atan(xl / r))
+        return Result(
+            mapOf("Impedance Z" to "${fmt(z)} Ω",
+                  "Inductive Reactance Xl" to "${fmt(xl)} Ω",
+                  "Phase Angle" to "${fmt(phase)}°"),
+            "Z = √(R² + Xl²)",
+            "In RL circuits, current lags voltage. Impedance combines resistance and reactance."
+        )
+    }
+
+    // ── 26. MOTOR TORQUE ─────────────────────────────────────────────────────
+    fun motorTorque(powerW: Double, speedRpm: Double): Result {
+        val torque = powerW * 9.5493 / speedRpm
+        val powerKw = powerW / 1000
+        return Result(
+            mapOf("Torque" to "${fmt(torque)} Nm",
+                  "Power" to "${fmt(powerKw)} kW",
+                  "Speed" to "${fmt(speedRpm)} RPM"),
+            "T = P × 9550 / N",
+            "Torque is the rotational force produced by a motor. Higher speed = lower torque for same power."
+        )
+    }
+
+    // ── 27. GENERATOR OUTPUT ─────────────────────────────────────────────────
+    fun generatorOutput(voltage: Double, current: Double, pf: Double, phases: Int): Result {
+        val apparentPower = if (phases == 1) voltage * current else sqrt(3.0) * voltage * current
+        val realPower = apparentPower * pf
+        val reactivePower = apparentPower * sin(acos(pf))
+        return Result(
+            mapOf("Real Power (kW)" to "${fmt(realPower/1000)} kW",
+                  "Apparent Power (kVA)" to "${fmt(apparentPower/1000)} kVA",
+                  "Reactive Power (kVAR)" to "${fmt(reactivePower/1000)} kVAR"),
+            if(phases==1) "P = V×I×PF" else "P = √3×V×I×PF",
+            "Generator output depends on voltage, current, and power factor of the connected load."
+        )
+    }
+
+    // ── 28. ENERGY STORED ────────────────────────────────────────────────────
+    fun energyStored(powerW: Double, timeHours: Double): Result {
+        val wh = powerW * timeHours
+        val kwh = wh / 1000
+        val joules = wh * 3600
+        return Result(
+            mapOf("Energy (Wh)" to "${fmt(wh)} Wh",
+                  "Energy (kWh/Units)" to "${fmt(kwh)} kWh",
+                  "Energy (Joules)" to "${fmt(joules)} J"),
+            "E = P × t",
+            "1 kWh = 1 unit of electricity. This is what your electricity meter measures."
+        )
+    }
+
+    // ── 29. PF CORRECTION ────────────────────────────────────────────────────
+    fun pfCorrection(p: Double, pfOld: Double, pfNew: Double, voltage: Double, freq: Double = 50.0): Result {
+        val qOld = p * tan(acos(pfOld))
+        val qNew = p * tan(acos(pfNew))
+        val qc = qOld - qNew
+        val capacitance = qc / (2 * PI * freq * voltage * voltage)
+        return Result(
+            mapOf("Reactive Power Reduction" to "${fmt(qc)} VAR",
+                  "Capacitor Size" to "${fmt(qc/1000)} kVAR",
+                  "Capacitance" to "${fmt(capacitance*1e6)} μF"),
+            "Qc = P×(tan φ1 - tan φ2)",
+            "Capacitors generate reactive power to offset inductive reactive power and improve PF."
+        )
+    }
+
+    // ── 30. TEMPERATURE COEFFICIENT ──────────────────────────────────────────
+    fun tempCoefficient(r0: Double, alpha: Double, t0: Double, t1: Double): Result {
+        val rt = r0 * (1 + alpha * (t1 - t0))
+        val change = rt - r0
+        val changePct = change / r0 * 100
+        return Result(
+            mapOf("Resistance at ${fmt(t1)}°C" to "${fmt(rt)} Ω",
+                  "Change in Resistance" to "${fmt(change)} Ω",
+                  "Percentage Change" to "${fmt(changePct)} %"),
+            "Rt = R0×(1 + α×ΔT)",
+            "Most conductors increase resistance with temperature. Copper α ≈ 0.00393/°C"
+        )
+    }
+
+    // ── 31. VOLTAGE REGULATOR 78xx ───────────────────────────────────────────
+    fun voltageRegulator(vin: Double, vout: Double, iload: Double): Result {
+        val vdrop = vin - vout
+        val pdiss = vdrop * iload
+        val eff = vout * iload / (vin * iload) * 100
+        return Result(
+            mapOf("Voltage Drop" to "${fmt(vdrop)} V",
+                  "Power Dissipation" to "${fmt(pdiss)} W",
+                  "Efficiency" to "${fmt(eff)} %"),
+            "Vdrop = Vin - Vout, Pdiss = Vdrop × IL",
+            "78xx regulators waste power as heat. Use heatsink if Pdiss > 1W. Consider switching regulator for better efficiency."
+        )
+    }
+
+    // ── 32. NUMBER SYSTEM CONVERTER ──────────────────────────────────────────
+    fun numberConvert(value: String, fromBase: Int): Result {
+        val decimal = value.toLong(fromBase)
+        return Result(
+            mapOf("Decimal" to decimal.toString(10),
+                  "Binary" to decimal.toString(2),
+                  "Octal" to decimal.toString(8),
+                  "Hexadecimal" to decimal.toString(16).uppercase()),
+            "Convert using positional notation",
+            "Binary (base-2) is used in digital electronics. Hex (base-16) is used in programming and color codes."
+        )
+    }
+
 }

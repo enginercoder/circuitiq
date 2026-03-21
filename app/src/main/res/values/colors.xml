@@ -39,4 +39,6 @@
 
     <!-- Result card -->
     <color name="result_bg">#1A0A2E</color>
+    <color name="fav_gold">#FFD700</color>
+    <color name="fav_bg">#FFF8E1</color>
 </resources>

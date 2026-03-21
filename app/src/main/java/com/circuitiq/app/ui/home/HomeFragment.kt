@@ -16,9 +16,10 @@ import com.circuitiq.app.adapter.CategoryAdapter
 import com.circuitiq.app.adapter.CalculatorAdapter
 import com.circuitiq.app.data.model.Calculator
 import com.circuitiq.app.databinding.FragmentHomeBinding
+import com.circuitiq.app.ui.MainActivity
 import com.circuitiq.app.ui.calculator.CalculatorActivity
 import com.circuitiq.app.util.CalculatorData
-import com.circuitiq.app.util.getGreeting
+import java.util.Calendar
 
 class HomeFragment : Fragment() {
     private var _b: FragmentHomeBinding? = null
@@ -33,91 +34,74 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(v: View, s: Bundle?) {
         super.onViewCreated(v, s)
-
-        b.tvGreeting.text = getGreeting()
-        
-        b.tvSubtitle.text = "What will you calculate today?"
-
+        updateGreeting()
         val categories = CalculatorData.getCategories()
         allCalcs = categories.flatMap { it.calculators }
-
         val catAdapter = CategoryAdapter(categories) { cat ->
             calcAdapter.updateList(cat.calculators)
             b.tvSectionTitle.text = cat.name
         }
-        b.rvCategories.layoutManager = LinearLayoutManager(
-            requireContext(), LinearLayoutManager.HORIZONTAL, false
-        )
+        b.rvCategories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         b.rvCategories.adapter = catAdapter
-
         calcAdapter = CalculatorAdapter(allCalcs) { calc -> openCalculator(calc) }
         b.rvCalculators.layoutManager = GridLayoutManager(requireContext(), 2)
         b.rvCalculators.adapter = calcAdapter
         b.rvCalculators.layoutAnimation = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_anim)
         b.tvSectionTitle.text = "All Calculators (${allCalcs.size})"
-
         b.etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val q = s.toString().trim().lowercase()
-                if (q.isEmpty()) {
-                    calcAdapter.updateList(allCalcs)
-                    b.tvSectionTitle.text = "All Calculators (${allCalcs.size})"
-                } else {
-                    val filtered = allCalcs.filter {
-                        it.name.lowercase().contains(q) ||
-                        it.category.lowercase().contains(q) ||
-                        it.description.lowercase().contains(q)
-                    }
-                    calcAdapter.updateList(filtered)
-                    b.tvSectionTitle.text = "${filtered.size} results for \"$q\""
+                if (q.isEmpty()) { calcAdapter.updateList(allCalcs); b.tvSectionTitle.text = "All Calculators (${allCalcs.size})" }
+                else {
+                    val f = allCalcs.filter { it.name.lowercase().contains(q) || it.category.lowercase().contains(q) || it.description.lowercase().contains(q) }
+                    calcAdapter.updateList(f); b.tvSectionTitle.text = "${f.size} results"
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, a: Int) {}
             override fun onTextChanged(s: CharSequence?, st: Int, b: Int, a: Int) {}
         })
-
-        // Share App
+        b.btnDarkMode.setOnClickListener { MainActivity.toggleDarkMode(requireContext()); activity?.recreate() }
         b.btnShareApp.setOnClickListener {
-            val text = "⚡ Check out CircuitIQ — The best FREE electrical engineering calculator app!\n\n" +
-                "✅ 48+ Calculators\n📴 Works Offline\n🆓 100% Free\n\n" +
-                "Download: https://play.google.com/store/apps/details?id=com.circuitiq.app\n\n" +
-                "Built by Aditya Pal · EEE Engineer"
-            startActivity(Intent.createChooser(
-                Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, text) },
-                "Share CircuitIQ"
-            ))
+            val text = "⚡ Check out CircuitIQ — Free electrical engineering calculator!\n48+ Calculators, 100% Offline\nhttps://play.google.com/store/apps/details?id=com.circuitiq.app\nBy Aditya Pal · EEE Engineer"
+            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type="text/plain"; putExtra(Intent.EXTRA_TEXT,text) }, "Share CircuitIQ"))
         }
-
-        // Request Feature
         b.btnRequestFeature.setOnClickListener {
-            val subject = "CircuitIQ - Feature Request"
-            val body = "Hi Aditya,\n\nI would like to request a new feature/calculator:\n\n[Describe your feature here]\n\nApp Version: 1.0.0\nDevice: Android"
-            val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:adityapaleee@gmail.com")).apply {
-                putExtra(Intent.EXTRA_SUBJECT, subject)
-                putExtra(Intent.EXTRA_TEXT, body)
-            }
-            startActivity(Intent.createChooser(intent, "Send Feature Request"))
+            startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:adityapaleee@gmail.com")).apply {
+                putExtra(Intent.EXTRA_SUBJECT, "CircuitIQ Feature Request")
+                putExtra(Intent.EXTRA_TEXT, "Hi Aditya,\n\nI would like to request:\n\n[Your feature here]")
+            })
         }
+        vm.favorites.observe(viewLifecycleOwner) { b.tvFavCount.text = "${it.size} ★" }
+    }
 
-        vm.favorites.observe(viewLifecycleOwner) { favs ->
-            b.tvFavCount.text = "${favs.size} ★"
+    private fun updateGreeting() {
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val greeting = when (hour) {
+            in 5..11  -> "Good Morning!"
+            in 12..16 -> "Good Afternoon!"
+            in 17..20 -> "Good Evening!"
+            else      -> "Good Night!"
         }
+        val emoji = when (hour) {
+            in 5..8   -> "🌅"
+            in 9..11  -> "☀️"
+            in 12..16 -> "🌤️"
+            in 17..20 -> "🌆"
+            in 21..23 -> "⭐"
+            else      -> "🌙"
+        }
+        b.tvGreeting.text = greeting
+        b.tvGreetingIcon.text = emoji
+        b.tvSubtitle.text = "What will you calculate today?"
     }
 
     private fun openCalculator(calc: Calculator) {
         startActivity(Intent(requireContext(), CalculatorActivity::class.java).apply {
-            putExtra("calc_id", calc.id)
-            putExtra("calc_name", calc.name)
-            putExtra("calc_category", calc.category)
-            putExtra("calc_desc", calc.description)
+            putExtra("calc_id", calc.id); putExtra("calc_name", calc.name)
+            putExtra("calc_category", calc.category); putExtra("calc_desc", calc.description)
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        b.tvGreeting.text = getGreeting()
-        
-    }
-
+    override fun onResume() { super.onResume(); updateGreeting() }
     override fun onDestroyView() { super.onDestroyView(); _b = null }
 }

@@ -4,9 +4,9 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorSecondary">@color/gold</item>
-        <item name="android:colorBackground">#0F0F1A</item>
-        <item name="android:statusBarColor">#0F0F1A</item>
-        <item name="android:navigationBarColor">#1A1A2E</item>
-        <item name="colorSurface">#1A1A2E</item>
+        <item name="android:colorBackground">@color/bg_light</item>
+        <item name="android:statusBarColor">#0F0E17</item>
+        <item name="android:navigationBarColor">#1C1B2E</item>
+        <item name="colorSurface">@color/bg_card</item>
     </style>
 </resources>

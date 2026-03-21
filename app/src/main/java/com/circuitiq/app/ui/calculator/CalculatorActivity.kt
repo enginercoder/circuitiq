@@ -143,18 +143,13 @@ class CalculatorActivity : AppCompatActivity() {
 
     private fun showResult(result: CalculatorEngine.Result) {
         b.resultCard.visibility = View.VISIBLE
-        b.tvFormula.text = "Formula: ${result.formula}"
+        b.tvFormula.text = "Formula: " + result.formula
         b.tvExplanation.text = result.explanation
-        b.tvResults.text = result.values.entries.joinToString("
-") { "• ${it.key}: ${it.value}" }
+        b.tvResults.text = result.values.entries.joinToString("\n") { "• " + it.key + ": " + it.value }
         b.btnShare.setOnClickListener {
-            val text = "CircuitIQ Result - $calcName
-
-${result.values.entries.joinToString("
-") { "${it.key}: ${it.value}" }}
-
-Formula: ${result.formula}"
-            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type="text/plain"; putExtra(Intent.EXTRA_TEXT,text) }, "Share Result"))
+            val lines = result.values.entries.joinToString("\n") { it.key + ": " + it.value }
+            val text = "CircuitIQ - " + calcName + "\n\n" + lines + "\n\nFormula: " + result.formula
+            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, text) }, "Share Result"))
         }
     }
 
@@ -189,5 +184,4 @@ Formula: ${result.formula}"
             else { Repository.addFavorite(Favorite(calcId,calcName,calcCategory,"⚡")); isFav=true; b.btnFav.text="★"; Toast.makeText(this@CalculatorActivity,"Added to favourites ★",Toast.LENGTH_SHORT).show() }
         }
     }
-}
 }

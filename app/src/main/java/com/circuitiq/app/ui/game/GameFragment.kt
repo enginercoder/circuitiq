@@ -4,14 +4,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.*
-import android.view.animation.*
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import com.circuitiq.app.R
 import com.circuitiq.app.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
     private var _b: FragmentGameBinding? = null
     private val b get() = _b!!
-
     private var score = 0
     private var lives = 3
     private var questionIndex = 0
@@ -36,7 +36,7 @@ class GameFragment : Fragment() {
     }
 
     private fun showQuestion() {
-        if (questionIndex >= questions.size) { showGameOver(true); return }
+        if (questionIndex >= questions.size) { showGameOver(); return }
         timer?.cancel()
         val q = questions[questionIndex]
         b.tvScore.text = "⚡ $score"
@@ -45,7 +45,6 @@ class GameFragment : Fragment() {
         b.tvQNumber.text = "${questionIndex + 1}/${questions.size}"
         b.progressTimer.max = 15
         b.progressTimer.progress = 15
-
         val buttons = listOf(b.btnA, b.btnB, b.btnC, b.btnD)
         buttons.forEachIndexed { i, btn ->
             btn.text = q.options[i]
@@ -54,23 +53,16 @@ class GameFragment : Fragment() {
             btn.isEnabled = true
             btn.setOnClickListener { checkAnswer(q.options[i], q.correct, buttons) }
         }
-
-        // Slide in animation
         val anim = AnimationUtils.loadAnimation(requireContext(), android.R.anim.slide_in_left)
         b.tvQuestion.startAnimation(anim)
-
-        // Countdown timer
         timer = object : CountDownTimer(15000, 1000) {
             override fun onTick(ms: Long) {
                 val secs = (ms / 1000).toInt()
                 b.progressTimer.progress = secs
                 b.tvTimer.text = "${secs}s"
-                if (secs <= 5) b.tvTimer.setTextColor(Color.RED)
-                else b.tvTimer.setTextColor(Color.parseColor("#FFD700"))
+                b.tvTimer.setTextColor(if (secs <= 5) Color.RED else Color.parseColor("#FFD700"))
             }
-            override fun onFinish() {
-                timeUp(questions[questionIndex].correct, buttons)
-            }
+            override fun onFinish() { timeUp(questions[questionIndex].correct, buttons) }
         }.start()
     }
 
@@ -90,12 +82,8 @@ class GameFragment : Fragment() {
             b.tvFeedback.setTextColor(Color.parseColor("#EF476F"))
         }
         b.tvFeedback.visibility = View.VISIBLE
-        if (lives <= 0) {
-            b.root.postDelayed({ showGameOver(false) }, 1500)
-        } else {
-            questionIndex++
-            b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; showQuestion() }, 1500)
-        }
+        if (lives <= 0) b.root.postDelayed({ showGameOver() }, 1500)
+        else { questionIndex++; b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; showQuestion() }, 1500) }
     }
 
     private fun timeUp(correct: String, buttons: List<android.widget.Button>) {
@@ -105,11 +93,11 @@ class GameFragment : Fragment() {
         b.tvFeedback.setTextColor(Color.parseColor("#FFD700"))
         b.tvFeedback.visibility = View.VISIBLE
         lives--
-        if (lives <= 0) b.root.postDelayed({ showGameOver(false) }, 1500)
+        if (lives <= 0) b.root.postDelayed({ showGameOver() }, 1500)
         else { questionIndex++; b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; showQuestion() }, 1500) }
     }
 
-    private fun showGameOver(won: Boolean) {
+    private fun showGameOver() {
         timer?.cancel()
         b.questionLayout.visibility = View.GONE
         b.gameOverLayout.visibility = View.VISIBLE
@@ -125,6 +113,5 @@ class GameFragment : Fragment() {
     }
 
     private fun restartGame() { startGame() }
-
     override fun onDestroyView() { timer?.cancel(); super.onDestroyView(); _b = null }
 }

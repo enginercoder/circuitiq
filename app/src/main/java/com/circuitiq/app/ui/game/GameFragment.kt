@@ -1,130 +1,98 @@
 package com.circuitiq.app.ui.game
-
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.*
-import android.view.animation.*
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.circuitiq.app.databinding.FragmentGameBinding
-
 class GameFragment : Fragment() {
     private var _b: FragmentGameBinding? = null
     private val b get() = _b!!
-
-    private var score = 0
-    private var lives = 3
-    private var questionIndex = 0
+    private var score = 0; private var lives = 3; private var qi = 0
     private var timer: CountDownTimer? = null
-    private val questions = ElectricityQuizData.getQuestions().shuffled()
-
+    private val qs = ElectricityQuizData.getQuestions().shuffled()
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _b = FragmentGameBinding.inflate(i, c, false); return b.root
     }
-
     override fun onViewCreated(v: View, s: Bundle?) {
-        super.onViewCreated(v, s)
-        startGame()
-        b.btnRestart.setOnClickListener { restartGame() }
+        super.onViewCreated(v, s); start()
+        b.btnRestart.setOnClickListener { start() }
     }
-
-    private fun startGame() {
-        score = 0; lives = 3; questionIndex = 0
+    private fun start() {
+        score = 0; lives = 3; qi = 0
         b.gameOverLayout.visibility = View.GONE
         b.questionLayout.visibility = View.VISIBLE
-        showQuestion()
+        show()
     }
-
-    private fun showQuestion() {
-        if (questionIndex >= questions.size) { showGameOver(true); return }
+    private fun show() {
+        if (qi >= qs.size) { over(); return }
         timer?.cancel()
-        val q = questions[questionIndex]
+        val q = qs[qi]
         b.tvScore.text = "⚡ $score"
         b.tvLives.text = "❤️".repeat(lives)
         b.tvQuestion.text = q.question
-        b.tvQNumber.text = "${questionIndex + 1}/${questions.size}"
-        b.progressTimer.max = 15
-        b.progressTimer.progress = 15
-
-        val buttons = listOf(b.btnA, b.btnB, b.btnC, b.btnD)
-        buttons.forEachIndexed { i, btn ->
-            btn.text = q.options[i]
+        b.tvQNumber.text = "${qi + 1}/${qs.size}"
+        b.progressTimer.max = 15; b.progressTimer.progress = 15
+        val btns = listOf(b.btnA, b.btnB, b.btnC, b.btnD)
+        btns.forEachIndexed { idx, btn ->
+            btn.text = q.options[idx]
             btn.setBackgroundColor(Color.parseColor("#2D1B4E"))
             btn.setTextColor(Color.WHITE)
             btn.isEnabled = true
-            btn.setOnClickListener { checkAnswer(q.options[i], q.correct, buttons) }
+            btn.setOnClickListener { check(q.options[idx], q.correct, btns) }
         }
-
-        // Slide in animation
-        val anim = AnimationUtils.loadAnimation(requireContext(), android.R.anim.slide_in_left)
-        b.tvQuestion.startAnimation(anim)
-
-        // Countdown timer
+        b.tvQuestion.startAnimation(AnimationUtils.loadAnimation(requireContext(), android.R.anim.slide_in_left))
         timer = object : CountDownTimer(15000, 1000) {
             override fun onTick(ms: Long) {
-                val secs = (ms / 1000).toInt()
-                b.progressTimer.progress = secs
-                b.tvTimer.text = "${secs}s"
-                if (secs <= 5) b.tvTimer.setTextColor(Color.RED)
-                else b.tvTimer.setTextColor(Color.parseColor("#FFD700"))
+                val s = (ms / 1000).toInt()
+                b.progressTimer.progress = s
+                b.tvTimer.text = "${s}s"
+                b.tvTimer.setTextColor(if (s <= 5) Color.RED else Color.parseColor("#FDCB6E"))
             }
-            override fun onFinish() {
-                timeUp(questions[questionIndex].correct, buttons)
-            }
+            override fun onFinish() { timeup(qs[qi].correct, btns) }
         }.start()
     }
-
-    private fun checkAnswer(selected: String, correct: String, buttons: List<android.widget.Button>) {
-        timer?.cancel()
-        buttons.forEach { it.isEnabled = false }
-        if (selected == correct) {
+    private fun check(sel: String, correct: String, btns: List<android.widget.Button>) {
+        timer?.cancel(); btns.forEach { it.isEnabled = false }
+        if (sel == correct) {
             score += 10
-            buttons.first { it.text == selected }.setBackgroundColor(Color.parseColor("#06D6A0"))
+            btns.first { it.text == sel }.setBackgroundColor(Color.parseColor("#06D6A0"))
             b.tvFeedback.text = "✅ Correct! +10"
             b.tvFeedback.setTextColor(Color.parseColor("#06D6A0"))
         } else {
             lives--
-            buttons.first { it.text == selected }.setBackgroundColor(Color.parseColor("#EF476F"))
-            buttons.first { it.text == correct }.setBackgroundColor(Color.parseColor("#06D6A0"))
+            btns.first { it.text == sel }.setBackgroundColor(Color.parseColor("#EF476F"))
+            btns.first { it.text == correct }.setBackgroundColor(Color.parseColor("#06D6A0"))
             b.tvFeedback.text = "❌ Wrong! Answer: $correct"
             b.tvFeedback.setTextColor(Color.parseColor("#EF476F"))
         }
         b.tvFeedback.visibility = View.VISIBLE
-        if (lives <= 0) {
-            b.root.postDelayed({ showGameOver(false) }, 1500)
-        } else {
-            questionIndex++
-            b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; showQuestion() }, 1500)
-        }
+        if (lives <= 0) b.root.postDelayed({ over() }, 1500)
+        else { qi++; b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; show() }, 1500) }
     }
-
-    private fun timeUp(correct: String, buttons: List<android.widget.Button>) {
-        buttons.forEach { it.isEnabled = false }
-        buttons.firstOrNull { it.text == correct }?.setBackgroundColor(Color.parseColor("#06D6A0"))
-        b.tvFeedback.text = "⏰ Time up! Answer: $correct"
-        b.tvFeedback.setTextColor(Color.parseColor("#FFD700"))
+    private fun timeup(correct: String, btns: List<android.widget.Button>) {
+        btns.forEach { it.isEnabled = false }
+        btns.firstOrNull { it.text == correct }?.setBackgroundColor(Color.parseColor("#06D6A0"))
+        b.tvFeedback.text = "⏰ Time up!"
+        b.tvFeedback.setTextColor(Color.parseColor("#FDCB6E"))
         b.tvFeedback.visibility = View.VISIBLE
         lives--
-        if (lives <= 0) b.root.postDelayed({ showGameOver(false) }, 1500)
-        else { questionIndex++; b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; showQuestion() }, 1500) }
+        if (lives <= 0) b.root.postDelayed({ over() }, 1500)
+        else { qi++; b.root.postDelayed({ b.tvFeedback.visibility = View.GONE; show() }, 1500) }
     }
-
-    private fun showGameOver(won: Boolean) {
+    private fun over() {
         timer?.cancel()
         b.questionLayout.visibility = View.GONE
         b.gameOverLayout.visibility = View.VISIBLE
         b.tvFinalScore.text = "⚡ $score"
         b.tvGameOverMsg.text = when {
-            score >= 100 -> "Genius! 🏆 You know your circuits!"
-            score >= 60  -> "Great work! 🎉 Keep learning!"
-            score >= 30  -> "Good effort! 💪 Practice more!"
-            else         -> "Keep trying! 📚 Study the facts!"
+            score >= 100 -> "Genius! 🏆"
+            score >= 60  -> "Great! 🎉"
+            score >= 30  -> "Good! 💪"
+            else         -> "Keep trying! 📚"
         }
-        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.scale_up)
-        b.tvFinalScore.startAnimation(anim)
+        b.tvFinalScore.startAnimation(AnimationUtils.loadAnimation(requireContext(), android.R.anim.fade_in))
     }
-
-    private fun restartGame() { startGame() }
-
     override fun onDestroyView() { timer?.cancel(); super.onDestroyView(); _b = null }
 }

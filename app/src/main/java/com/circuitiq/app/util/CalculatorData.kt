@@ -149,5 +149,54 @@ object CalculatorData {
             example = "2000Wh/day, 5 sun hours, 85% efficiency: Panel = 2000/(5×0.85) = 470W",
             tip = "💡 India gets 4-7 peak sun hours/day. Rajasthan gets most, northeastern states get least."
         ),
+
+        "series_r" to LearningContent(
+            concept = "In a series circuit, resistors are connected end-to-end. The same current flows through all resistors, and total resistance is the sum of all individual resistances.",
+            steps = listOf("List all resistance values","Add them directly: R_total = R1 + R2 + R3...","Current is same through all resistors","Voltage divides proportionally across each resistor"),
+            example = "R1=100Ω, R2=220Ω, R3=330Ω in series: R_total = 650Ω",
+            tip = "💡 Series resistors always give a total resistance GREATER than the largest individual resistor."
+        ),
+        "parallel_r" to LearningContent(
+            concept = "In a parallel circuit, resistors share the same voltage. The total resistance is always less than the smallest individual resistor.",
+            steps = listOf("Take reciprocal of each: 1/R1, 1/R2, 1/R3...","Add the reciprocals: 1/R_total = 1/R1 + 1/R2","Take reciprocal of sum for R_total","For two resistors: R = R1×R2/(R1+R2)"),
+            example = "R1=100Ω, R2=100Ω in parallel: R = 100×100/(100+100) = 50Ω",
+            tip = "💡 Two equal resistors in parallel always give half the resistance. n equal resistors give R/n."
+        ),
+        "voltage_divider" to LearningContent(
+            concept = "A voltage divider uses two series resistors to produce an output voltage that is a fraction of the input voltage.",
+            steps = listOf("Identify R1 (top) and R2 (bottom)","Vout = Vin × R2/(R1+R2)","Output is across R2","Load affects the output — use high-value load resistors"),
+            example = "Vin=12V, R1=8kΩ, R2=4kΩ: Vout = 12×4/(8+4) = 4V",
+            tip = "💡 Voltage dividers are not suitable for driving low-resistance loads as it changes the ratio."
+        ),
+        "motor_torque" to LearningContent(
+            concept = "Torque is the rotational force produced by a motor. It is inversely related to speed — higher speed means lower torque for the same power.",
+            steps = listOf("T = P × 9550 / N (in Nm)","Or T = P × 60 / (2π × N)","Power = Torque × Angular velocity","Check motor nameplate for rated torque"),
+            example = "1.5kW motor at 1440 RPM: T = 1500×9.55/1440 = 9.95 Nm",
+            tip = "💡 A motor's starting torque is 1.5-2.5x its full-load torque. This is why motors sometimes trip on heavy starts."
+        ),
+        "timer_555" to LearningContent(
+            concept = "The 555 timer IC in astable mode continuously oscillates between high and low states, generating a square wave output without any external trigger.",
+            steps = listOf("Charge time (high): t_H = 0.693×(R1+R2)×C","Discharge time (low): t_L = 0.693×R2×C","Frequency: f = 1.44/((R1+2×R2)×C)","Duty cycle = (R1+R2)/(R1+2×R2)×100%"),
+            example = "R1=1kΩ, R2=10kΩ, C=10μF: f = 1.44/(21000×0.00001) = 6.86 Hz",
+            tip = "💡 To get 50% duty cycle, make R1 very small compared to R2, or use a diode across R2."
+        ),
+        "resonance" to LearningContent(
+            concept = "At resonant frequency, inductive reactance equals capacitive reactance (XL=XC), and they cancel each other out. The circuit draws minimum current (series) or maximum current (parallel).",
+            steps = listOf("f = 1/(2π√LC)","At resonance: XL = XC","Series resonance: minimum impedance","Parallel resonance: maximum impedance"),
+            example = "L=10mH, C=100μF: f = 1/(2π√(0.01×0.0001)) = 159 Hz",
+            tip = "💡 Radio tuning circuits use resonance — you change C to tune to different frequencies (stations)!"
+        ),
+        "efficiency" to LearningContent(
+            concept = "Efficiency is the ratio of useful output power to total input power. No machine is 100% efficient — losses occur as heat, friction, or other forms of waste energy.",
+            steps = listOf("η = (Pout/Pin) × 100%","Losses = Pin - Pout","% Loss = 100% - η","Typical: Transformer 95-99%, Motor 85-95%"),
+            example = "Motor input 1000W, output 850W: η = 850/1000 × 100 = 85%",
+            tip = "💡 Even a 1% improvement in large machine efficiency can save millions of rupees annually in industrial plants."
+        ),
+        "db_power" to LearningContent(
+            concept = "Decibel (dB) is a logarithmic unit used to express power ratios. Logarithmic scale is used because human perception (hearing, vision) is also logarithmic.",
+            steps = listOf("dB = 10 × log10(P1/P2)","Positive dB = amplification","Negative dB = attenuation","+3dB ≈ double the power, -3dB ≈ half the power"),
+            example = "Amplifier input 1mW, output 100mW: dB = 10×log10(100) = 20 dB gain",
+            tip = "💡 Every 10dB increase means 10x more power. Every 3dB means 2x more power. Easy to remember!"
+        ),
     )
 }

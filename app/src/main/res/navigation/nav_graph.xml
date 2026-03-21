@@ -5,6 +5,7 @@
     app:startDestination="@id/homeFragment">
     <fragment android:id="@+id/homeFragment" android:name="com.circuitiq.app.ui.home.HomeFragment" android:label="Home"/>
     <fragment android:id="@+id/historyFragment" android:name="com.circuitiq.app.ui.history.HistoryFragment" android:label="History"/>
+    <fragment android:id="@+id/didYouKnowFragment" android:name="com.circuitiq.app.ui.didyouknow.DidYouKnowFragment" android:label="Did You Know"/>
     <fragment android:id="@+id/favoritesFragment" android:name="com.circuitiq.app.ui.favorites.FavoritesFragment" android:label="Favorites"/>
     <fragment android:id="@+id/aboutFragment" android:name="com.circuitiq.app.ui.about.AboutFragment" android:label="About"/>
 </navigation>

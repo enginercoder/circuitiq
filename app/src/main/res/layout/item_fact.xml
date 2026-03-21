@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="#1A0A2E">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+            <TextView android:id="@+id/tvEmoji"
+                android:layout_width="48dp" android:layout_height="48dp"
+                android:text="⚡" android:textSize="28sp" android:gravity="center"
+                android:background="@drawable/bg_splash_badge"
+                android:layout_marginEnd="12dp"/>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Amazing Fact" android:textColor="#FFD700"
+                    android:textSize="16sp" android:fontFamily="sans-serif-bold"/>
+                <TextView android:id="@+id/tvCategory"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Category" android:textColor="#9C4DCC"
+                    android:textSize="11sp" android:layout_marginTop="2dp"
+                    android:background="@drawable/bg_category_chip"
+                    android:paddingStart="8dp" android:paddingEnd="8dp"
+                    android:paddingTop="2dp" android:paddingBottom="2dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView android:id="@+id/tvFact"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Fact text here" android:textColor="#DDDDEE"
+            android:textSize="14sp" android:lineSpacingExtra="5dp"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

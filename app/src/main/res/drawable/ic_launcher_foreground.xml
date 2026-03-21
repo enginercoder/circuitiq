@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Purple gradient background circle -->
+    <path
+        android:fillColor="#7B2FBE"
+        android:pathData="M54,54m-54,0a54,54 0,1 1,108 0a54,54 0,1 1,-108 0"/>
+    <!-- Inner lighter circle -->
+    <path
+        android:fillColor="#9C4DCC"
+        android:pathData="M54,54m-42,0a42,42 0,1 1,84 0a42,42 0,1 1,-84 0"/>
+    <!-- Gold lightning bolt -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M62,20 L38,52 L52,52 L46,88 L70,56 L56,56 Z"/>
+    <!-- Small gold dots (circuit nodes) -->
+    <path android:fillColor="#FFD700" android:pathData="M28,35 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <path android:fillColor="#FFD700" android:pathData="M80,35 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <path android:fillColor="#FFD700" android:pathData="M28,73 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <path android:fillColor="#FFD700" android:pathData="M80,73 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <!-- Circuit lines -->
+    <path android:strokeColor="#FFD70066" android:strokeWidth="1.5"
+        android:pathData="M28,35 L36,35 M72,35 L80,35 M28,73 L36,73 M72,73 L80,73"/>
+</vector>

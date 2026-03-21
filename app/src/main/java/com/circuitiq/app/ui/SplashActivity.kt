@@ -3,52 +3,79 @@ package com.circuitiq.app.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.*
-import android.widget.ImageView
+import android.view.View
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.circuitiq.app.R
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+
     override fun onCreate(s: Bundle?) {
         super.onCreate(s)
         setContentView(R.layout.activity_splash)
 
-        val ivIcon = findViewById<ImageView>(R.id.ivSplashIcon)
+        val glowRing = findViewById<View>(R.id.glowRing)
+        val ivIcon = findViewById<View>(R.id.ivSplashIcon)
         val tvName = findViewById<TextView>(R.id.tvSplashName)
         val tvTagline = findViewById<TextView>(R.id.tvSplashTagline)
+        val badgeRow = findViewById<LinearLayout>(R.id.badgeRow)
         val tvAuthor = findViewById<TextView>(R.id.tvSplashAuthor)
+        val dotLoader = findViewById<LinearLayout>(R.id.dotLoader)
+        val dot1 = findViewById<View>(R.id.dot1)
+        val dot2 = findViewById<View>(R.id.dot2)
+        val dot3 = findViewById<View>(R.id.dot3)
 
-        // Icon: scale + fade in
-        val iconAnim = AnimationSet(true).apply {
-            addAnimation(ScaleAnimation(0.3f,1f,0.3f,1f,
-                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f)
-                .apply { duration=700; interpolator=OvershootInterpolator(2f) })
-            addAnimation(AlphaAnimation(0f,1f).apply { duration=700 })
-        }
-        ivIcon.startAnimation(iconAnim)
+        // Glow ring fades in
+        glowRing.animate().alpha(1f).setDuration(600).setStartDelay(100).start()
 
-        // App name: slide up + fade
-        val nameAnim = AnimationSet(true).apply {
-            addAnimation(TranslateAnimation(0f,0f,60f,0f).apply { duration=600; startOffset=400 })
-            addAnimation(AlphaAnimation(0f,1f).apply { duration=600; startOffset=400 })
-        }
-        tvName.startAnimation(nameAnim)
+        // Icon bounces in
+        ivIcon.scaleX = 0.3f; ivIcon.scaleY = 0.3f
+        ivIcon.animate().alpha(1f).scaleX(1f).scaleY(1f)
+            .setDuration(700).setStartDelay(200)
+            .setInterpolator(OvershootInterpolator(1.8f)).start()
 
-        // Tagline
-        val tagAnim = AlphaAnimation(0f,1f).apply { duration=600; startOffset=700 }
-        tvTagline.startAnimation(tagAnim)
+        // App name slides up
+        tvName.translationY = 60f
+        tvName.animate().alpha(1f).translationY(0f)
+            .setDuration(600).setStartDelay(600)
+            .setInterpolator(DecelerateInterpolator()).start()
+
+        // Tagline fades
+        tvTagline.animate().alpha(1f).setDuration(500).setStartDelay(850).start()
+
+        // Badges
+        badgeRow.animate().alpha(1f).setDuration(500).setStartDelay(1050).start()
 
         // Author
-        val authorAnim = AlphaAnimation(0f,1f).apply { duration=600; startOffset=900 }
-        tvAuthor.startAnimation(authorAnim)
+        tvAuthor.animate().alpha(1f).setDuration(500).setStartDelay(1200).start()
 
-        // Navigate after 2.5s
+        // Dot loader appears then bounces
+        dotLoader.animate().alpha(1f).setDuration(400).setStartDelay(1300).withEndAction {
+            bounceDot(dot1, 0)
+            bounceDot(dot2, 180)
+            bounceDot(dot3, 360)
+        }.start()
+
+        // Navigate after 3.2s
         ivIcon.postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }, 2500)
+            overridePendingTransition(R.anim.fade_in, android.R.anim.fade_out)
+        }, 3200)
+    }
+
+    private fun bounceDot(dot: View, delay: Long) {
+        dot.postDelayed({
+            dot.animate().translationY(-18f).setDuration(280)
+                .withEndAction {
+                    dot.animate().translationY(0f).setDuration(280).withEndAction {
+                        bounceDot(dot, 0)
+                    }.start()
+                }.start()
+        }, delay)
     }
 }

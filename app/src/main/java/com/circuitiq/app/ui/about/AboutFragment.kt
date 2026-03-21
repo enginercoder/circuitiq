@@ -31,10 +31,10 @@ class AboutFragment : Fragment() {
             b.tvBulb.startAnimation(anim)
             if (isBulbOn) {
                 b.tvBulb.text = "💡"
-                b.tvBulbHint.text = "💡 On! Tap to turn off"
+                b.tvBulbHint.text = "Tap to turn off 🌑"
             } else {
-                b.tvBulb.text = "🔦"
-                b.tvBulbHint.text = "Off. Tap to turn on"
+                b.tvBulb.text = "🌑"
+                b.tvBulbHint.text = "Tap to turn on 💡"
             }
         }
 

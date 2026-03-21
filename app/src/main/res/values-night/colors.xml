@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bg_light">#0F0E17</color>
-    <color name="bg_card">#1C1B2E</color>
-    <color name="bg_surface">#1C1B2E</color>
-    <color name="nav_bg">#1C1B2E</color>
-    <color name="text_primary">#F0F0FF</color>
-    <color name="text_secondary">#9999BB</color>
-    <color name="input_bg">#2A1A4E</color>
-    <color name="text_on_input">#F0F0FF</color>
+    <color name="bg_card">#1E1D2E</color>
+    <color name="bg_surface">#1E1D2E</color>
+    <color name="nav_bg">#1E1D2E</color>
+    <color name="text_primary">#F0EFFF</color>
+    <color name="text_secondary">#B0B0D0</color>
+    <color name="text_hint">#7070A0</color>
+    <color name="input_bg">#2A2840</color>
+    <color name="text_on_input">#F0EFFF</color>
+    <color name="primary_surface">#2A2840</color>
+
+    <!-- Example/Tip - dark mode visible -->
+    <color name="example_bg">#2A1F00</color>
+    <color name="example_border">#92400E</color>
+    <color name="example_text">#FCD34D</color>
+    <color name="tip_bg">#1A1030</color>
+    <color name="tip_border">#7C3AED</color>
+    <color name="tip_text">#C4B5FD</color>
 </resources>

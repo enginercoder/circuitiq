@@ -6,28 +6,41 @@
     android:background="@color/bg_light">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="200dp"
+
+        <!-- Header with interactive bulb -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="220dp"
             android:background="@drawable/bg_header_card"
-            android:orientation="vertical" android:gravity="center"
-            android:paddingTop="48dp" android:paddingBottom="32dp">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="💡" android:textSize="56sp"/>
+            android:orientation="vertical" android:gravity="center">
+            <TextView android:id="@+id/tvBulb"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="💡" android:textSize="64sp" android:gravity="center"
+                android:paddingStart="16dp" android:paddingEnd="16dp"
+                android:paddingTop="12dp" android:paddingBottom="12dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="CircuitIQ" android:textColor="#FFFFFF"
-                android:textSize="28sp" android:fontFamily="sans-serif-bold" android:layout_marginTop="8dp"/>
+                android:textSize="30sp" android:fontFamily="sans-serif-bold"
+                android:layout_marginTop="4dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Version 1.0.0" android:textColor="#CCFFFFFF" android:textSize="13sp"/>
+                android:text="v1.0.0 · Smart Electrical Calculator"
+                android:textColor="#CCFFFFFF" android:textSize="13sp"/>
+            <TextView android:id="@+id/tvBulbHint"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="👆 Tap the bulb!" android:textColor="#99FFFFFF"
+                android:textSize="11sp" android:layout_marginTop="6dp"/>
         </LinearLayout>
+
+        <!-- Developer Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_margin="16dp" app:cardCornerRadius="20dp" app:cardElevation="4dp">
+            android:layout_margin="16dp" app:cardCornerRadius="20dp" app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/bg_card">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:padding="24dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Developer" android:textSize="12sp"
-                    android:textColor="@color/text_secondary" android:layout_marginBottom="8dp"/>
+                    android:text="👨‍💻 Developer" android:textSize="12sp"
+                    android:textColor="@color/text_secondary" android:layout_marginBottom="6dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Aditya Pal" android:textSize="22sp"
+                    android:text="Aditya Pal" android:textSize="24sp"
                     android:fontFamily="sans-serif-bold" android:textColor="@color/primary"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="Electrical and Electronics Engineer"
@@ -37,30 +50,54 @@
                     android:text="Alumni of Dr. APJ Abdul Kalam Technical University, Lucknow"
                     android:textColor="@color/text_secondary" android:textSize="13sp"
                     android:layout_marginTop="4dp" android:layout_marginBottom="20dp"/>
-                <Button android:id="@+id/btnLinkedIn"
-                    android:layout_width="match_parent" android:layout_height="48dp"
-                    android:text="Connect on LinkedIn"
-                    android:textColor="#FFFFFF" android:layout_marginBottom="8dp"
-                    android:background="@drawable/bg_btn_primary"
-                    android:stateListAnimator="@null"/>
-                <Button android:id="@+id/btnInstagram"
-                    android:layout_width="match_parent" android:layout_height="48dp"
-                    android:text="Follow on Instagram"
-                    android:textColor="#FFFFFF" android:layout_marginBottom="8dp"
-                    android:background="@drawable/bg_share_btn"
-                    android:stateListAnimator="@null"/>
-                <Button android:id="@+id/btnEmail"
-                    android:layout_width="match_parent" android:layout_height="48dp"
-                    android:text="Send Email"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/bg_request_btn"
-                    android:stateListAnimator="@null"/>
+
+                <!-- LinkedIn with icon -->
+                <LinearLayout android:id="@+id/btnLinkedIn"
+                    android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_linkedin" android:orientation="horizontal"
+                    android:gravity="center" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="in" android:textColor="#FFFFFF" android:textSize="18sp"
+                        android:fontFamily="sans-serif-bold" android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_social_icon" android:gravity="center"
+                        android:paddingStart="10dp" android:paddingEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Connect on LinkedIn" android:textColor="#FFFFFF"
+                        android:textSize="15sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
+
+                <!-- Instagram with icon -->
+                <LinearLayout android:id="@+id/btnInstagram"
+                    android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_instagram" android:orientation="horizontal"
+                    android:gravity="center" android:layout_marginBottom="10dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="📸" android:textSize="18sp" android:layout_marginEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Follow on Instagram" android:textColor="#FFFFFF"
+                        android:textSize="15sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
+
+                <!-- Email -->
+                <LinearLayout android:id="@+id/btnEmail"
+                    android:layout_width="match_parent" android:layout_height="52dp"
+                    android:background="@drawable/bg_btn_primary" android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="✉️" android:textSize="18sp" android:layout_marginEnd="10dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Send Email" android:textColor="#FFFFFF"
+                        android:textSize="15sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- About App Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp" app:cardCornerRadius="20dp" app:cardElevation="2dp">
+            android:layout_marginBottom="16dp" app:cardCornerRadius="20dp" app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/bg_card">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:padding="20dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -72,10 +109,29 @@
                     android:textColor="@color/text_secondary" android:textSize="14sp"
                     android:lineSpacingExtra="4dp"/>
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="48 Calculators · 7 Categories · Offline · Free"
+                    android:text="48 Calculators · 7 Categories · Offline · Free Forever"
                     android:textColor="@color/primary" android:textSize="13sp"
                     android:fontFamily="sans-serif-bold" android:layout_marginTop="10dp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- Proudly Made in India footer -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="center"
+            android:padding="24dp" android:layout_marginBottom="80dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="🇮🇳  Proudly Made in India" android:textSize="15sp"
+                android:textColor="@color/text_primary" android:fontFamily="sans-serif-bold"
+                android:gravity="center"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="by an Engineering Student  ❤️" android:textSize="13sp"
+                android:textColor="@color/text_secondary" android:gravity="center"
+                android:layout_marginTop="4dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="CircuitIQ © 2025" android:textSize="11sp"
+                android:textColor="@color/text_hint" android:gravity="center"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

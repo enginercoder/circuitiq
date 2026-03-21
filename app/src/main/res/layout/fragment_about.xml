@@ -46,25 +46,25 @@
                     android:id="@+id/btnLinkedIn"
                     android:layout_width="match_parent" android:layout_height="48dp"
                     android:text="  Connect on LinkedIn"
-                    android:textColor="@color/white" android:layout_marginBottom="8dp"
+                    android:textColor=""#FFFFFF"" android:layout_marginBottom="8dp"
                     app:backgroundTint="#0077B5" app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_linkedin" app:iconTint="@color/white"/>
+                    app:icon="@drawable/ic_linkedin" app:iconTint=""#FFFFFF""/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnInstagram"
                     android:layout_width="match_parent" android:layout_height="48dp"
                     android:text="  Follow on Instagram"
-                    android:textColor="@color/white" android:layout_marginBottom="8dp"
+                    android:textColor=""#FFFFFF"" android:layout_marginBottom="8dp"
                     app:backgroundTint="#E1306C" app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_instagram" app:iconTint="@color/white"/>
+                    app:icon="@drawable/ic_instagram" app:iconTint=""#FFFFFF""/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEmail"
                     android:layout_width="match_parent" android:layout_height="48dp"
                     android:text="  Send Email"
-                    android:textColor="@color/white"
+                    android:textColor=""#FFFFFF""
                     app:backgroundTint="@color/primary" app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_email" app:iconTint="@color/white"/>
+                    app:icon="@drawable/ic_email" app:iconTint=""#FFFFFF""/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

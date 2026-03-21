@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_light">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_header"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingStart="20dp" android:paddingEnd="16dp"
+        android:paddingTop="44dp" android:paddingBottom="16dp">
+        <TextView android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Calculation History" android:textColor="#FFD700"
+            android:textSize="20sp" android:fontFamily="sans-serif-bold"/>
+        <TextView android:id="@+id/tvCount"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="#CCFFFFFF" android:textSize="12sp"/>
+    </LinearLayout>
+    <Button android:id="@+id/btnClear"
+        android:layout_width="match_parent" android:layout_height="40dp"
+        android:text="Clear All History" android:textColor="@color/error"
+        android:background="?attr/selectableItemBackground"
+        android:layout_margin="8dp"/>
+    <TextView android:id="@+id/tvEmpty"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="No calculations yet.
+Start calculating to see history here."
+        android:textColor="@color/text_secondary" android:gravity="center"
+        android:padding="60dp" android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:paddingStart="12dp" android:paddingEnd="12dp"
+        android:paddingBottom="80dp" android:clipToPadding="false"/>
+</LinearLayout>

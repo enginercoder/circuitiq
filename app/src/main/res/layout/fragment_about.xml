@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_header"
+            android:orientation="vertical" android:gravity="center"
+            android:paddingTop="48dp" android:paddingBottom="32dp" android:paddingStart="20dp" android:paddingEnd="20dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="⚡" android:textSize="56sp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="CircuitIQ" android:textColor="#FFD700"
+                android:textSize="28sp" android:fontFamily="sans-serif-bold" android:layout_marginTop="8dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Version 1.0.0" android:textColor="#CCFFFFFF" android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- Developer Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_margin="16dp" app:cardCornerRadius="20dp" app:cardElevation="4dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="24dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="👨‍💻 Developer" android:textSize="12sp"
+                    android:textColor="@color/text_secondary" android:layout_marginBottom="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Aditya Pal" android:textSize="22sp"
+                    android:fontFamily="sans-serif-bold" android:textColor="@color/primary"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Electrical and Electronics Engineer"
+                    android:textColor="@color/gold_dark" android:textSize="14sp"
+                    android:layout_marginTop="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Alumni of Dr. APJ Abdul Kalam Technical University, Lucknow"
+                    android:textColor="@color/text_secondary" android:textSize="13sp"
+                    android:layout_marginTop="4dp" android:layout_marginBottom="20dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLinkedIn"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:text="  Connect on LinkedIn"
+                    android:textColor="@color/white" android:layout_marginBottom="8dp"
+                    app:backgroundTint="#0077B5" app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_linkedin" app:iconTint="@color/white"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnInstagram"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:text="  Follow on Instagram"
+                    android:textColor="@color/white" android:layout_marginBottom="8dp"
+                    app:backgroundTint="#E1306C" app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_instagram" app:iconTint="@color/white"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEmail"
+                    android:layout_width="match_parent" android:layout_height="48dp"
+                    android:text="  Send Email"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/primary" app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_email" app:iconTint="@color/white"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- App Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp" app:cardCornerRadius="20dp" app:cardElevation="4dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="24dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="📱 About CircuitIQ" android:textSize="16sp"
+                    android:fontFamily="sans-serif-bold" android:textColor="@color/text_primary"
+                    android:layout_marginBottom="12dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="CircuitIQ is a comprehensive electrical engineering calculator designed for students, engineers, and researchers. It covers everything from basic Ohm's law to complex 3-phase power calculations, motor analysis, and solar sizing.
+
+Built with passion for electrical engineering."
+                    android:textColor="@color/text_secondary" android:textSize="14sp"
+                    android:lineSpacingExtra="4dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="40+ Calculators | 7 Categories | Offline | Free Forever"
+                    android:textColor="@color/primary" android:textSize="13sp"
+                    android:fontFamily="sans-serif-bold" android:layout_marginTop="12dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

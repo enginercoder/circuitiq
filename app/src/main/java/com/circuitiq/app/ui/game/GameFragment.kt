@@ -29,8 +29,8 @@ class GameFragment : Fragment() {
         if (qi >= qs.size) { over(); return }
         timer?.cancel()
         val q = qs[qi]
-        b.tvScore.text = "⚡ $score"
-        b.tvLives.text = "❤️".repeat(lives)
+        b.tvScore.text = "\u26a1 $score"
+        b.tvLives.text = "\u2764\ufe0f".repeat(lives)
         b.tvQuestion.text = q.question
         b.tvQNumber.text = "${qi + 1}/${qs.size}"
         b.progressTimer.max = 15; b.progressTimer.progress = 15
@@ -58,13 +58,13 @@ class GameFragment : Fragment() {
         if (sel == correct) {
             score += 10
             btns.first { it.text == sel }.setBackgroundColor(Color.parseColor("#06D6A0"))
-            b.tvFeedback.text = "✅ Correct! +10"
+            b.tvFeedback.text = "\u2705 Correct! +10"
             b.tvFeedback.setTextColor(Color.parseColor("#06D6A0"))
         } else {
             lives--
             btns.first { it.text == sel }.setBackgroundColor(Color.parseColor("#EF476F"))
             btns.first { it.text == correct }.setBackgroundColor(Color.parseColor("#06D6A0"))
-            b.tvFeedback.text = "❌ Wrong! Answer: $correct"
+            b.tvFeedback.text = "\u274c Wrong! Answer: $correct"
             b.tvFeedback.setTextColor(Color.parseColor("#EF476F"))
         }
         b.tvFeedback.visibility = View.VISIBLE
@@ -74,7 +74,7 @@ class GameFragment : Fragment() {
     private fun timeup(correct: String, btns: List<android.widget.Button>) {
         btns.forEach { it.isEnabled = false }
         btns.firstOrNull { it.text == correct }?.setBackgroundColor(Color.parseColor("#06D6A0"))
-        b.tvFeedback.text = "⏰ Time up!"
+        b.tvFeedback.text = "\u23f0 Time up!"
         b.tvFeedback.setTextColor(Color.parseColor("#FDCB6E"))
         b.tvFeedback.visibility = View.VISIBLE
         lives--
@@ -85,12 +85,12 @@ class GameFragment : Fragment() {
         timer?.cancel()
         b.questionLayout.visibility = View.GONE
         b.gameOverLayout.visibility = View.VISIBLE
-        b.tvFinalScore.text = "⚡ $score"
+        b.tvFinalScore.text = "\u26a1 $score"
         b.tvGameOverMsg.text = when {
-            score >= 100 -> "Genius! 🏆"
-            score >= 60  -> "Great! 🎉"
-            score >= 30  -> "Good! 💪"
-            else         -> "Keep trying! 📚"
+            score >= 100 -> "Genius! \U0001f3c6"
+            score >= 60  -> "Great! \U0001f389"
+            score >= 30  -> "Good! \U0001f4aa"
+            else         -> "Keep trying! \U0001f4da"
         }
         b.tvFinalScore.startAnimation(AnimationUtils.loadAnimation(requireContext(), android.R.anim.fade_in))
     }

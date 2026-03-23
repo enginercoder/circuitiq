@@ -16,7 +16,8 @@ class CalculatorAdapter(
             b.root.setOnClickListener { onClick(c) }
         }
     }
-    override fun onCreateViewHolder(p: ViewGroup, t: Int) = VH(ItemCalculatorBinding.inflate(LayoutInflater.from(p.context), p, false))
+    override fun onCreateViewHolder(p: ViewGroup, t: Int) =
+        VH(ItemCalculatorBinding.inflate(LayoutInflater.from(p.context), p, false))
     override fun onBindViewHolder(h: VH, pos: Int) = h.bind(items[pos])
     override fun getItemCount() = items.size
 }

@@ -87,10 +87,10 @@ class GameFragment : Fragment() {
         b.gameOverLayout.visibility = View.VISIBLE
         b.tvFinalScore.text = "\u26a1 $score"
         b.tvGameOverMsg.text = when {
-            score >= 100 -> "Genius! \U0001f3c6"
+            score >= 100 -> "Genius! 🏆"
             score >= 60  -> "Great! \U0001f389"
             score >= 30  -> "Good! \U0001f4aa"
-            else         -> "Keep trying! \U0001f4da"
+            else         -> "Keep trying! 📚"
         }
         b.tvFinalScore.startAnimation(AnimationUtils.loadAnimation(requireContext(), android.R.anim.fade_in))
     }
